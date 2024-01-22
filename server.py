@@ -12,6 +12,11 @@ def loadCompetitions():
     with open('competitions.json') as comps:
          listOfCompetitions = json.load(comps)['competitions']
          return listOfCompetitions
+    
+def loadBookings():
+    with open('bookings.json') as file:
+        listBookings = json.load(file)
+        return listBookings
 
 def create_app(config):
     app = Flask(__name__)
@@ -22,8 +27,9 @@ def create_app(config):
 
 
     @app.route('/')
-    def index():        
-        return render_template('index.html',competitions=competitions, bookings=bookings)
+    def index():   
+        
+        return render_template('index.html',competitions=competitions)
 
     @app.route('/showSummary',methods=['POST'])
     def showSummary():
