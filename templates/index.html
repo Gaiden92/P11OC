@@ -12,5 +12,30 @@
         <input type="email" name="email" id=""/>
         <button type="submit">Enter</button>
     </form>
+    <h3>Tableau des réservations:</h3>
+    {% block content %}
+        <table id="data" class="table table-striped" style="border: 1px solid black;width:500px">
+            <thead>
+                <tr>
+                <th style="border: 1px solid black; padding:15px">Nom du club</th>
+                {% for competition in competitions %}
+                    <th  style="border: 1px solid black; padding:15px">{{competition["name"]}}</th>
+                {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+    
+                    {% for k, v in bookings.items() %}
+                    <tr>
+                        <td style="border: 1px solid black; padding:15px">{{k}}</td>
+                        {% for competition_name, nb_place in v.items() %}
+                            <td style="border: 1px solid black; padding:15px">{{nb_place}}</td>
+                        {% endfor%}
+                    </tr>
+                    {% endfor %}
+                
+            </tbody>
+        </table>
+    {% endblock %}
 </body>
 </html>

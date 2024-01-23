@@ -13,6 +13,10 @@ def loadCompetitions():
          listOfCompetitions = json.load(comps)['competitions']
          return listOfCompetitions
 
+def loadBooking():
+    with open('bookings.json') as books:
+        listBookings = json.load(books)
+        return listBookings
 
 app = Flask(__name__)
 app.secret_key = 'something_special'
@@ -22,7 +26,8 @@ clubs = loadClubs()
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    bookings = loadBooking()
+    return render_template('index.html', bookings=bookings)
 
 @app.route('/showSummary',methods=['POST'])
 def showSummary():
