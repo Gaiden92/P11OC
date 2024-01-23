@@ -1,14 +1,29 @@
-{
-    "competitions": [
-        {
-            "name": "Spring Festival",
-            "date": "2020-03-27 10:00:00",
-            "numberOfPlaces": "11"
-        },
-        {
-            "name": "Fall Classic",
-            "date": "2020-10-22 13:30:00",
-            "numberOfPlaces": "4"
-        }
-    ]
-}
+{   "clubs":[
+    {
+        "She Lifts": [
+            {
+                "Spring Festival": "6"
+            },
+            {
+                "Fall Classic": "2"
+            }]
+    },
+    {
+        "Iron Temple": [
+            {
+                "Spring Festival": "10"
+            },
+            {
+                "Fall Classic": "5"
+            }]
+    },
+    {
+        "Simply Lift": [
+            {
+                "Spring Festival": "1"
+            },
+            {
+                "Fall Classic": "9"
+            }]
+    }
+]}
