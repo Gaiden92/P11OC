@@ -19,13 +19,13 @@
                 <tr>
                 <th style="border: 1px solid black; padding:15px">Nom du club</th>
                 {% for competition in competitions %}
-                    <th  style="border: 1px solid black; padding:15px">{{competition["name"]}}</th>
+                    <th  style="border: 1px solid black; padding:15px">{{competition['name']}}</th>
                 {% endfor %}
                 </tr>
             </thead>
             <tbody>
     
-                    {% for k, v in bookings.items() %}
+                    {% for k, v in bookings["clubs"].items() %}
                     <tr>
                         <td style="border: 1px solid black; padding:15px">{{k}}</td>
                         {% for competition_name, nb_place in v.items() %}

@@ -1,29 +1,22 @@
-{   "clubs":[
+{   "clubs":
     {
-        "She Lifts": [
+        "She Lifts": 
             {
-                "Spring Festival": "6"
-            },
-            {
+                "Spring Festival": "6",
+            
                 "Fall Classic": "2"
-            }]
-    },
-    {
-        "Iron Temple": [
-            {
-                "Spring Festival": "10"
             },
+        "Iron Temple": 
             {
+                "Spring Festival": "10",
+            
                 "Fall Classic": "5"
-            }]
-    },
-    {
-        "Simply Lift": [
-            {
-                "Spring Festival": "1"
             },
+        "Simply Lift": 
             {
+                "Spring Festival": "1",
+            
                 "Fall Classic": "9"
-            }]
+            }
     }
-]}
+}
