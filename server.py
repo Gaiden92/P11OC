@@ -1,4 +1,5 @@
 import json
+import datetime
 from flask import Flask,render_template,request,redirect,flash,url_for
 
 
@@ -11,6 +12,12 @@ def loadCompetitions():
     with open('competitions.json') as comps:
          listOfCompetitions = json.load(comps)['competitions']
          return listOfCompetitions
+
+def isCompetitionClose(date_competition):
+    actualDate = datetime.datetime.now()
+    dateCompetition = datetime.datetime.strptime(date_competition, "%Y-%m-%d %H:%M:%S")
+
+    return actualDate > dateCompetition
 
 def create_app(config):
     app = Flask(__name__)
@@ -45,11 +52,10 @@ def create_app(config):
         competition = [c for c in competitions if c['name'] == request.form['competition']][0]
         club = [c for c in clubs if c['name'] == request.form['club']][0]
         placesRequired = int(request.form['places'])
-        pointsClub = int(club['points'])
-
-        # tester que le nombre de place reservées n'est pas supérieur au points du club 
-        if pointsClub - placesRequired < 0:
-            flash('You cannot book more places then you got. Please try again.')
+        
+        # tester si la compétition est déja clôturée 
+        if isCompetitionClose(competition['date']):
+            flash('You cannot book places for a competition close.')
             return render_template('booking.html',club=club,competition=competition)
         
         competition['numberOfPlaces'] = int(competition['numberOfPlaces'])-placesRequired
