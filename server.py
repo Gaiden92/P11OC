@@ -13,7 +13,7 @@ def loadCompetitions():
         listOfCompetitions = json.load(comps)['competitions']
         return listOfCompetitions
 
-def loadBooking():
+def loadBookings():
     with open('bookings.json') as books:
         listBookings = json.load(books)["clubs"]
         return listBookings
@@ -39,7 +39,7 @@ def create_app(config):
 
     competitions = loadCompetitions()
     clubs = loadClubs()
-    bookings = loadBooking()
+    bookings = loadBookings()
 
     @app.route('/')
     def index():
