@@ -32,6 +32,7 @@ def create_app(config):
         except IndexError:
             flash('You need to enter a valid email. Please try again.')
             return redirect(url_for('index'))
+        flash("You are now connect")
         return render_template('welcome.html',club=club,competitions=competitions)
 
 
