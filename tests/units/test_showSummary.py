@@ -13,4 +13,11 @@ def test_message_email_error(client):
     with client.session_transaction() as session:
         flash_messages = dict(session['_flashes'])
 
+    # Test si le message d'erreur est bien dans le dictionnaire flash_messages
     assert flash_messages['message'] == 'You need to enter a valid email. Please try again.'
+
+def test_status_code(client):
+    response = client.post('/showSummary', data={
+        'email': 'john@simplylift.co'
+    })
+    assert response.status_code == 200
