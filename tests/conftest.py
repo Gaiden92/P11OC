@@ -1,4 +1,4 @@
-import pytest
+import pytest, json
 from server import create_app
 
 @pytest.fixture
@@ -15,37 +15,15 @@ def client(app):
 
 @pytest.fixture
 def clubs_data():
-    return {
-        "clubs": [
-            {
-                "name": "Simply Lift",
-                "email": "john@simplylift.co",
-                "points": "13"
-            },
-            {
-                "name": "Iron Temple",
-                "email": "admin@irontemple.com",
-                "points": "4"
-            }
-        ]
-    }
+    with open("clubs.json") as file:
+        clubs = json.load(file)
+        return clubs
 
 @pytest.fixture
 def competitions_data():
-    return {
-        "competitions": [
-            {
-                "name": "Spring Festival",
-                "date": "2020-03-27 10:00:00",
-                "numberOfPlaces": "25"
-            },
-            {
-                "name": "Fall Classic",
-                "date": "2020-10-22 13:30:00",
-                "numberOfPlaces": "13"
-            }
-        ]
-    }
+    with open("competitions.json") as file:
+        competitions = json.load(file)
+        return competitions
 
 @pytest.fixture
 def bookings_data():
