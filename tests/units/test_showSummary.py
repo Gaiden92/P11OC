@@ -18,9 +18,12 @@ def test_showSummary(client, app, load_clubs_and_competitions_and_bookings):
     # test status code
     assert response.status_code == 200
 
-    # Test si la réponse est correcte
+    # test si le message de résumé est bien dans la réponse
     assert b'You are now connect' in response.data
+
+    # test si les données du club sont bien récupérés dans la reponse 
     club = [club for club in app.clubs if club['email'] == 'john@simplylift.co'][0]
+    
     assert club['email'] in response.data.decode()
     assert club['points'] in response.data.decode()
 
