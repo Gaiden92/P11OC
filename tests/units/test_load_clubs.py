@@ -1,26 +1,10 @@
 from server import loadClubs
 
-def test_should_get_clubs(client):
-    expected = [
-    {
-        "name":"Simply Lift",
-        "email":"john@simplylift.co",
-        "points":"13"
-    },
-    {
-        "name":"Iron Temple",
-        "email": "admin@irontemple.com",
-        "points":"4"
-    },
-    {   "name":"She Lifts",
-        "email": "kate@shelifts.co.uk",
-        "points":"12"
-    }
-]
-
+def test_should_get_clubs(client, app, load_clubs_and_competitions_and_bookings):
+    expected_clubs = app.clubs
     clubs = loadClubs()
-
-    assert expected == clubs
-
-
-# tester le nombre de clubs et les noms et emails
+    
+    # test du nombre d'élements
+    assert len(expected_clubs) == len(clubs)
+    # test de la concordance des données
+    assert expected_clubs == clubs
