@@ -1,10 +1,8 @@
-def test_status_code(client):
+def test_home_page(client):
     response = client.get('/')
     # test du status code
     assert response.status_code == 200
-
-def test_template(client):
-    response = client.get('/')
-    # test s'il s'agit du bon template
+    # test si le template correspond bien à index.html
     assert b'GUDLFT Registration' in response.data
+    
     

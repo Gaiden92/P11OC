@@ -21,3 +21,6 @@ def test_should_get_clubs(client):
     clubs = loadClubs()
 
     assert expected == clubs
+
+
+# tester le nombre de clubs et les noms et emails
