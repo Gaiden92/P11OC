@@ -25,5 +25,8 @@ def test_book_competition_close(client, app, club_competition_test_open_or_close
     # Vérifiez si la compétition est clôturée
     assert is_close == True
 
-    print(response.data.decode())
+    # # Test des données attendues sur la page book
+    assert competition["name"] in response.data.decode()
+    assert club["name"] in response.data.decode()
+    assert club["points"] in response.data.decode()
 
