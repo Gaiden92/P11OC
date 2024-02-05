@@ -40,3 +40,17 @@ def load_clubs_and_competitions_and_bookings(app, clubs_data, competitions_data,
         app.competitions = competitions_data['competitions']
         app.bookings = bookings_data
         yield
+
+@pytest.fixture
+def club_competition_test_open_or_close(app, load_clubs_and_competitions_and_bookings):
+    competition_open = [competition for competition in app.competitions
+                   if competition['name'] == "Spring Festival"][0]
+    competition_close = [competition for competition in app.competitions
+                   if competition['name'] == "Fall Classic"][0]
+
+    club = [club for club in app.clubs
+                   if club['name'] == "Simply Lift"][0]
+    app.club = club
+    app.competition_open = competition_open
+    app.competition_close = competition_close
+    yield
