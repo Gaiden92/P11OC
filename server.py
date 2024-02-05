@@ -71,8 +71,15 @@ def create_app(config):
 
         placesRequired = int(request.form['places'])
 
+        pointsClub = int(club['points'])
+
+        # tester que le nombre de place reservées n'est pas supérieur au points du club 
+        if pointsClub - placesRequired < 0:
+            flash('You cannot book more places then you got. Please try again.')
+            return render_template('booking.html',club=club,competition=competition)
+        
         # Tester que le nombre de places reservées ne soient pas supérieurs à 12.
-        if placesRequired + int(nb_places) > 12:
+        elif placesRequired + int(nb_places) > 12:
             flash("You cannot book more than 12 for one competition, please try again.")
             return render_template('booking.html', club=club, competition= competition)
         

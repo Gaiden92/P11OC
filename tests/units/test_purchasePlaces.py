@@ -23,10 +23,10 @@ def test_purchasesPlaces(client, app, load_clubs_and_competitions_and_bookings):
 def test_message_no_booking_more_than_points_available(client):
     response = client.post('/purchasePlaces', data={
         'competition': 'Spring Festival',
-        'club': 'Simply Lift',
+        'club': 'Iron Temple',
         'places': '5'
     })
-    print(response.data.decode())
+
     # Test si la réponse est correcte
     assert response.status_code == 200
     assert b'You cannot book more places then you got. Please try again.' in response.data
