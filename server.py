@@ -29,7 +29,7 @@ def club_book_more_than_twelve_places(nb_places):
     return nb_places > 12
 
 def create_app(config):
-    app = Flask(__name__)
+    app = Flask(__name__, static_url_path='/static')
     app.secret_key = 'something_special'
 
     competitions = loadCompetitions()
