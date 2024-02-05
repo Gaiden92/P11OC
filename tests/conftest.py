@@ -1,5 +1,5 @@
 import pytest, json
-from server import create_app, isCompetitionClose
+from server import create_app, isCompetitionClose, loadCompetitions, loadClubs
 
 @pytest.fixture
 def app():
