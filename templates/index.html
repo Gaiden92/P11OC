@@ -24,12 +24,12 @@
     </form>
     <h3>Tableau des réservations:</h3>
     {% block content %}
-        <table id="data" class="table table-striped" style="border: 1px solid black;width:500px">
+        <table id="data" class="table table-striped" >
             <thead>
                 <tr>
-                <th style="border: 1px solid black; padding:15px">Nom du club</th>
+                <th>Nom du club</th>
                 {% for competition in competitions %}
-                    <th  style="border: 1px solid black; padding:15px">{{competition['name']}}</th>
+                    <th>{{competition['name']}}</th>
                 {% endfor %}
                 </tr>
             </thead>
@@ -37,9 +37,9 @@
     
                     {% for k, v in bookings.items() %}
                     <tr>
-                        <td style="border: 1px solid black; padding:15px">{{k}}</td>
+                        <td>{{k}}</td>
                         {% for competition_name, nb_place in v.items() %}
-                            <td style="border: 1px solid black; padding:15px">{{nb_place}}</td>
+                            <td>{{nb_place}}</td>
                         {% endfor%}
                     </tr>
                     {% endfor %}

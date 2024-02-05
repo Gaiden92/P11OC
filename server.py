@@ -34,10 +34,10 @@ def create_app(config):
 
     competitions = loadCompetitions()
     clubs = loadClubs()
-
+    bookings = loadBookings()
     @app.route('/')
     def index():
-        return render_template('index.html', clubs=clubs)
+        return render_template('index.html', competitions=competitions, bookings=bookings)
 
     @app.route('/showSummary',methods=['POST'])
     def showSummary():
@@ -67,7 +67,6 @@ def create_app(config):
         competition = [c for c in competitions if c['name'] == request.form['competition']][0]
         club = [c for c in clubs if c['name'] == request.form['club']][0]
         placesRequired = int(request.form['places'])
-<<<<<<< HEAD
         
         # tester si la compétition est déja clôturée 
         if isCompetitionClose(competition['date']):
@@ -92,9 +91,6 @@ def create_app(config):
         
         competition['numberOfPlaces'] = str(int(competition['numberOfPlaces'])-placesRequired)
         flash('Great-booking complete!')
-=======
-
->>>>>>> feature/implement_points_display_board
         return render_template('welcome.html', club=club, competitions=competitions)
 
 
