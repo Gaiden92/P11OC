@@ -12,7 +12,6 @@ def loadCompetitions():
     with open('competitions.json') as comps:
          listOfCompetitions = json.load(comps)['competitions']
          return listOfCompetitions
-<<<<<<< HEAD
     
 def loadBookings():
     with open('bookings.json') as file:
@@ -24,17 +23,10 @@ def isCompetitionClose(date_competition):
     dateCompetition = datetime.datetime.strptime(date_competition, "%Y-%m-%d %H:%M:%S")
 
     return actualDate > dateCompetition
-=======
-
-def loadBookings():
-    with open("bookings.json") as books:
-        listOfBookings = json.load(books)
-        return listOfBookings
     
 # Vérification du nombre de places déjà reservées pour une même compétition
 def club_book_more_than_twelve_places(nb_places):
     return nb_places > 12
->>>>>>> bug/clubs_shouldn't_be_able_to_book_more_than_12_places_per_competition
 
 def create_app(config):
     app = Flask(__name__)
