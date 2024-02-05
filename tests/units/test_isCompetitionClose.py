@@ -1,4 +1,4 @@
-from tests.conftest import isCompetitionClose
+from tests.conftest import isCompetitionClose, app, client, club_competition_test_open_or_close
 
 
 def test_book_competition_open(client, app, club_competition_test_open_or_close):
