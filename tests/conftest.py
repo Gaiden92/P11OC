@@ -29,42 +29,14 @@ def competitions_data():
 
 @pytest.fixture
 def bookings_data():
-    return {
-        "clubs": {
-            "She Lifts": {
-                "Spring Festival": "12",
-                "Fall Classic": "2"
-            },
-            "Iron Temple": {
-                "Spring Festival": "10",
-                "Fall Classic": "5"
-            },
-            "Simply Lift": {
-                "Spring Festival": "1",
-                "Fall Classic": "9"
-            }
-        }
-}
-
+    with open("bookings.json") as file:
+        bookings = json.load(file)
+        return bookings
 
 @pytest.fixture
 def load_clubs_and_competitions_and_bookings(app, clubs_data, competitions_data, bookings_data):
     with app.app_context():
         app.clubs = clubs_data['clubs']
         app.competitions = competitions_data['competitions']
-        app.bookings = bookings_data['clubs']
+        app.bookings = bookings_data
         yield
-
-@pytest.fixture
-def club_competition_test_open_or_close(app, load_clubs_and_competitions_and_bookings):
-    competition_open = [competition for competition in app.competitions
-                   if competition['name'] == "Spring Festival"][0]
-    competition_close = [competition for competition in app.competitions
-                   if competition['name'] == "Fall Classic"][0]
-
-    club = [club for club in app.clubs
-                   if club['name'] == "Simply Lift"][0]
-    app.club = club
-    app.competition_open = competition_open
-    app.competition_close = competition_close
-    yield

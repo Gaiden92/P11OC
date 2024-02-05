@@ -12,6 +12,7 @@ def loadCompetitions():
     with open('competitions.json') as comps:
          listOfCompetitions = json.load(comps)['competitions']
          return listOfCompetitions
+<<<<<<< HEAD
     
 def loadBookings():
     with open('bookings.json') as file:
@@ -23,6 +24,17 @@ def isCompetitionClose(date_competition):
     dateCompetition = datetime.datetime.strptime(date_competition, "%Y-%m-%d %H:%M:%S")
 
     return actualDate > dateCompetition
+=======
+
+def loadBookings():
+    with open("bookings.json") as books:
+        listOfBookings = json.load(books)
+        return listOfBookings
+    
+# Vérification du nombre de places déjà reservées pour une même compétition
+def club_book_more_than_twelve_places(nb_places):
+    return nb_places > 12
+>>>>>>> bug/clubs_shouldn't_be_able_to_book_more_than_12_places_per_competition
 
 def create_app(config):
     app = Flask(__name__)
@@ -62,6 +74,15 @@ def create_app(config):
         if isCompetitionClose(competition['date']):
             flash('You cannot book places for a competition close.')
             return render_template('booking.html',club=club,competition=competition)
+        bookings = loadBookings()
+        nb_places = bookings[club["name"]][competition["name"]]
+
+        placesRequired = int(request.form['places'])
+
+        # Tester que le nombre de places reservées ne soient pas supérieurs à 12.
+        if placesRequired + int(nb_places) > 12:
+            flash("You cannot book more than 12 for one competition, please try again.")
+            return render_template('booking.html', club=club, competition= competition)
         
         competition['numberOfPlaces'] = int(competition['numberOfPlaces'])-placesRequired
         flash('Great-booking complete!')
