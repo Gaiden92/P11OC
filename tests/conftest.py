@@ -12,8 +12,8 @@ def app():
 @pytest.fixture
 def client(app):    
     with app.test_client() as client:
-        with app.app_context():
-            yield client
+
+        yield client
 
 @pytest.fixture
 def clubs_data():
@@ -55,9 +55,4 @@ def club_competition_test_open_or_close(app, load_clubs_and_competitions_and_boo
     app.competition_close = competition_close
     yield
 
-@pytest.fixture
-def load_clubs_and_competitions_and_bookings(app, clubs_data, competitions_data):
-    with app.app_context():
-        app.clubs = clubs_data['clubs']
-        app.competitions = competitions_data['competitions']
-        yield
+
