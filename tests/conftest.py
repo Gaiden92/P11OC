@@ -1,12 +1,23 @@
 import pytest, json
-from server import create_app, isCompetitionClose, loadCompetitions, loadClubs
+from server import ( create_app,
+                    saveClubs,
+                    loadClubs,
+                    saveCompetitions,
+                    loadCompetitions,
+                    saveBookings,
+                    loadBookings
+)
 
 @pytest.fixture
 def app():
     app_instance = create_app({"TESTING": True})
     with app_instance.app_context():
-        loadClubs(),
-        loadCompetitions(),
+        loadClubs,
+        saveClubs,
+        saveCompetitions,
+        loadCompetitions,
+        saveBookings,
+        loadBookings
         yield app_instance
 
 @pytest.fixture

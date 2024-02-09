@@ -4,29 +4,34 @@ from flask import Flask,render_template,request,redirect,flash,url_for
 
 
 def loadClubs():
-    with open('clubs.json') as c:
+    with open('clubs.json', "r+") as c:
          listOfClubs = json.load(c)['clubs']
          return listOfClubs
 
 def loadCompetitions():
-    with open('competitions.json') as comps:
-         listOfCompetitions = json.load(comps)['competitions']
-         return listOfCompetitions
-    
+    with open('competitions.json', "r+") as comps:
+        listOfCompetitions = json.load(comps)['competitions']
+        return listOfCompetitions
+
 def loadBookings():
-    with open('bookings.json') as file:
-        listBookings = json.load(file)
+    with open('bookings.json') as books:
+        listBookings = json.load(books)["clubs"]
         return listBookings
 
-def isCompetitionClose(date_competition):
-    actualDate = datetime.datetime.now()
-    dateCompetition = datetime.datetime.strptime(date_competition, "%Y-%m-%d %H:%M:%S")
+def saveClubs(clubs: list):
+    with open("clubs.json", "w") as file_clubs:
+        clubs_dict = {"clubs":clubs}
+        json.dump(clubs_dict, file_clubs, indent=4)
 
-    return actualDate > dateCompetition
-    
-# Vérification du nombre de places déjà reservées pour une même compétition
-def club_book_more_than_twelve_places(nb_places):
-    return nb_places > 12
+def saveCompetitions(competitions: list):
+    with open("competitions.json", "w") as file_competitions:
+        competitions_dict = {"competitions": competitions}
+        json.dump(competitions_dict, file_competitions, indent=4)
+
+def saveBookings(bookings: list):
+        with open("bookings.json", "w") as file_bookings:
+            bookings_dict = {"clubs": bookings}
+            json.dump(bookings_dict, file_bookings, indent=4)
 
 def create_app(config):
     app = Flask(__name__, static_url_path='/static')
@@ -90,6 +95,19 @@ def create_app(config):
             return render_template('booking.html', club=club, competition= competition)
         
         competition['numberOfPlaces'] = str(int(competition['numberOfPlaces'])-placesRequired)
+
+        # Mise à jour des points du club, des places de la compétition et du dashboard 
+        competition['numberOfPlaces'] = str(int(competition['numberOfPlaces']) - placesRequired)
+        club['points'] = str(int(club['points']) - placesRequired)
+        bookings[club["name"]][competition["name"]] = str(
+            int(
+                bookings[club["name"]][competition["name"]]) + placesRequired
+                )
+
+        saveClubs(clubs)
+        saveCompetitions(competitions)
+        saveBookings(bookings)
+
         flash('Great-booking complete!')
         return render_template('welcome.html', club=club, competitions=competitions)
 
