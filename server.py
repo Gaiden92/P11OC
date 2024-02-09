@@ -1,5 +1,4 @@
-import json
-import datetime
+import datetime, json
 from flask import Flask,render_template,request,redirect,flash,url_for
 
 
@@ -15,7 +14,7 @@ def loadCompetitions():
 
 def loadBookings():
     with open('bookings.json') as books:
-        listBookings = json.load(books)["clubs"]
+        listBookings = json.load(books)
         return listBookings
 
 def saveClubs(clubs: list):
@@ -28,10 +27,16 @@ def saveCompetitions(competitions: list):
         competitions_dict = {"competitions": competitions}
         json.dump(competitions_dict, file_competitions, indent=4)
 
-def saveBookings(bookings: list):
+def saveBookings(bookings: dict):
         with open("bookings.json", "w") as file_bookings:
-            bookings_dict = {"clubs": bookings}
-            json.dump(bookings_dict, file_bookings, indent=4)
+            
+            json.dump(bookings, file_bookings, indent=4)
+
+def isCompetitionClose(date_competition):
+    actualDate = datetime.datetime.now()
+    dateCompetition = datetime.datetime.strptime(date_competition, "%Y-%m-%d %H:%M:%S")
+
+    return actualDate > dateCompetition
 
 def create_app(config):
     app = Flask(__name__, static_url_path='/static')
@@ -40,8 +45,10 @@ def create_app(config):
     competitions = loadCompetitions()
     clubs = loadClubs()
     bookings = loadBookings()
+
     @app.route('/')
     def index():
+        bookings = loadBookings()
         return render_template('index.html', competitions=competitions, bookings=bookings)
 
     @app.route('/showSummary',methods=['POST'])
@@ -94,8 +101,6 @@ def create_app(config):
             flash("You cannot book more than 12 for one competition, please try again.")
             return render_template('booking.html', club=club, competition= competition)
         
-        competition['numberOfPlaces'] = str(int(competition['numberOfPlaces'])-placesRequired)
-
         # Mise à jour des points du club, des places de la compétition et du dashboard 
         competition['numberOfPlaces'] = str(int(competition['numberOfPlaces']) - placesRequired)
         club['points'] = str(int(club['points']) - placesRequired)
