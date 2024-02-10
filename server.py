@@ -124,5 +124,5 @@ def create_app(config):
     return app
 
 if __name__ == "__main__":
-    app = create_app({"TESTING": True})
+    app = create_app({"TESTING": True, "PORT": 5000})
     app.run(debug=True)
