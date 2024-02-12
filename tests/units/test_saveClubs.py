@@ -4,8 +4,9 @@ from ..conftest import create_app, saveClubs, loadClubs
 
 def test_saveClubs(app):
     test_clubs = [
-        {"name": "Simply Lift", "email": "john@simplylift.co", "points": "8"},
+        {"name": "Simply Lift", "email": "john@simplylift.co", "points": "12"},
         {"name": "Iron Temple", "email": "admin@irontemple.com", "points": "2"},
+        {"name":"She Lifts", "email": "kate@shelifts.co.uk", "points":"11"}
     ]
 
     saveClubs(test_clubs)
